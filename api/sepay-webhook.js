@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydIqxRYHjC-dE-dnLVbLsRbA3aHoe9yIZyOzbzfQstKCU37_Bbje8ktPIm8fefw0EzPw/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYwtC3183jHUuDcS3MYktYiTQOIm93tIaeRZjYwNc0DMejJu_rYjOpclAtcuurQJwmRw/exec";
 
   try {
     const payload = req.body || {};
