@@ -54,7 +54,15 @@ function handleRequest(e) {
 
   try {
     let data = {};
-    if (e && e.postData && e.postData.contents) {
+
+    // Đọc dữ liệu từ query parameter ?payload=... (từ SePay Vercel Proxy)
+    if (e && e.parameter && e.parameter.payload) {
+      try {
+        data = JSON.parse(e.parameter.payload);
+      } catch (err) {
+        data = {};
+      }
+    } else if (e && e.postData && e.postData.contents) {
       try {
         data = JSON.parse(e.postData.contents);
       } catch (err) {
@@ -64,8 +72,8 @@ function handleRequest(e) {
       data = e.parameter;
     }
 
-    // ⚡ NẾU LÀ SEPAY WEBHOOK (Có chứa transferAmount / gateway / content / id)
-    if (data.gateway || data.transferType || data.transferAmount !== undefined || data.id || (data.content && String(data.content).length > 0)) {
+    // ⚡ NẾU LÀ SEPAY WEBHOOK (Có chứa parameter isSepay hoặc data SePay)
+    if ((e && e.parameter && e.parameter.isSepay) || data.gateway || data.transferType || data.transferAmount !== undefined || data.id || (data.content && String(data.content).length > 0)) {
       return handleSePayWebhook(data);
     }
 
@@ -145,7 +153,7 @@ function handleSePayWebhook(data) {
     if (!match) {
       // Gửi tin nhắn xác nhận SePay kết nối thành công về Telegram
       if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-        sendTelegramSimpleMessage("🧪 <b>SEPAY WEBHOOK KẾT NỐI THÀNH CÔNG!</b>\n-----------------------------------\nĐã nhận thành công dữ liệu gửi thử nghiệm từ SePay Dashboard.");
+        sendTelegramSimpleMessage("🧪 <b>SEPAY WEBHOOK KẾT NỐI THÀNH CÔNG!</b>\n-----------------------------------\nĐã nhận thành công dữ liệu thử nghiệm từ SePay Dashboard qua Vercel Proxy.");
       }
 
       return ContentService.createTextOutput(JSON.stringify({
@@ -196,9 +204,9 @@ function handleSePayWebhook(data) {
         message: "Đã cập nhật trạng thái PAID cho đơn " + orderId
       })).setMimeType(ContentService.MimeType.JSON);
     } else {
-      // Nếu có mã KGVxxx nhưng không thấy dòng tương ứng (Có thể do đơn cũ)
+      // Nếu có mã KGVxxx nhưng không thấy dòng tương ứng
       if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-        sendTelegramSimpleMessage("⚠️ <b>NHẬN THANH TOÁN SEPAY (" + escapeHtml(orderId) + ")</b>\nSố tiền: " + Number(amount).toLocaleString('vi-VN') + " VNĐ\nNội dung: " + escapeHtml(content) + "\n<i>(Không tìm thấy dòng trên Google Sheet)</i>");
+        sendTelegramSimpleMessage("⚠️ <b>NHẬN THANH TOÁN SEPAY (" + escapeHtml(orderId) + ")</b>\nSố tiền: " + Number(amount).toLocaleString('vi-VN') + " VNĐ\nNội dung: " + escapeHtml(content) + "\n<i>(Không tìm thấy dòng tương ứng trên Google Sheet)</i>");
       }
 
       return ContentService.createTextOutput(JSON.stringify({

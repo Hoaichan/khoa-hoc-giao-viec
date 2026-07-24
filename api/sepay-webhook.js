@@ -11,15 +11,13 @@ export default async function handler(req, res) {
 
   try {
     const payload = req.body || {};
-    const bodyString = typeof payload === 'string' ? payload : JSON.stringify(payload);
+    const payloadString = typeof payload === 'string' ? payload : JSON.stringify(payload);
 
-    // Forward request tới Google Apps Script (dùng text/plain để Apps Script đọc e.postData.contents không bị lỗi)
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
-      },
-      body: bodyString,
+    // Truyền dữ liệu SePay qua Query String ?isSepay=1&payload=... để bảo toàn qua Google 302 Redirect
+    const targetUrl = APPS_SCRIPT_URL + "?isSepay=1&payload=" + encodeURIComponent(payloadString);
+
+    const response = await fetch(targetUrl, {
+      method: 'GET',
       redirect: 'follow'
     });
 
