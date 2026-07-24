@@ -72,7 +72,7 @@ function handleRequest(e) {
       "UNPAID"     // Cột F: Trạng thái thanh toán
     ]);
 
-    // 2. Gửi thông báo tự động về Telegram Bot (Nếu đã điền Token & Chat ID)
+    // 2. Gửi thông báo tự động về Telegram Bot (Dùng định dạng HTML an toàn)
     if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
       sendTelegramNotification(orderId, name, phone, email, timestamp);
     }
@@ -98,25 +98,25 @@ function handleRequest(e) {
 }
 
 /**
- * Hàm gửi tin nhắn thông báo đơn hàng mới về Telegram
+ * Hàm gửi tin nhắn thông báo đơn hàng mới về Telegram (Format HTML an toàn 100%)
  */
 function sendTelegramNotification(orderId, name, phone, email, timestamp) {
   try {
     const message = 
-      "🔔 *ĐƠN HÀNG MỚI - KHOÁ HỌC GIAO VIỆC*\n" +
+      "<b>🔔 ĐƠN HÀNG MỚI - KHOÁ HỌC GIAO VIỆC</b>\n" +
       "-----------------------------------\n" +
-      "🆔 *Mã đơn hàng:* `" + orderId + "`\n" +
-      "👤 *Họ và tên:* " + name + "\n" +
-      "📞 *Điện thoại:* `" + phone + "`\n" +
-      "📧 *Email:* " + email + "\n" +
-      "💰 *Số tiền:* 890.000 VNĐ\n" +
-      "⏰ *Thời gian:* " + timestamp + "\n" +
-      "📌 *Trạng thái:* `UNPAID` (Đang chờ quét VietQR)";
+      "🆔 <b>Mã đơn hàng:</b> <code>" + escapeHtml(orderId) + "</code>\n" +
+      "👤 <b>Họ và tên:</b> " + escapeHtml(name) + "\n" +
+      "📞 <b>Điện thoại:</b> <code>" + escapeHtml(phone) + "</code>\n" +
+      "📧 <b>Email:</b> " + escapeHtml(email) + "\n" +
+      "💰 <b>Số tiền:</b> 890.000 VNĐ\n" +
+      "⏰ <b>Thời gian:</b> " + escapeHtml(timestamp) + "\n" +
+      "📌 <b>Trạng thái:</b> UNPAID (Đang chờ quét VietQR)";
 
     const payload = {
       chat_id: TELEGRAM_CHAT_ID,
       text: message,
-      parse_mode: "Markdown"
+      parse_mode: "HTML"
     };
 
     const options = {
@@ -126,8 +126,17 @@ function sendTelegramNotification(orderId, name, phone, email, timestamp) {
       muteHttpExceptions: true
     };
 
-    UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
+    const response = UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
+    Logger.log("Telegram API Response: " + response.getContentText());
   } catch (err) {
-    console.warn("Lỗi gửi thông báo Telegram:", err);
+    Logger.log("Lỗi gửi thông báo Telegram: " + err);
   }
+}
+
+function escapeHtml(text) {
+  if (!text) return "";
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
