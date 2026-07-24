@@ -1,6 +1,6 @@
 /**
  * ==============================================================================
- * GOOGLE APPS SCRIPT - KHÓA HỌC GIAO VIỆC DỄ DÀNG
+ * GOOGLE APPS SCRIPT - KHÓA HỌC GIAO VIỆC DỄ DÀNG + TELEGRAM BOT NOTIFICATION
  * ==============================================================================
  * ID Sheet: 1-kU84hAZpjZffVpP5_Iv5Z7L4QPjkYM_wxKqvIfDxgc
  * Tên Trang Tính: Danh sach
@@ -9,6 +9,10 @@
 
 const SPREADSHEET_ID = "1-kU84hAZpjZffVpP5_Iv5Z7L4QPjkYM_wxKqvIfDxgc";
 const SHEET_NAME = "Danh sach";
+
+// 🤖 CẤU HÌNH TELEGRAM BOT (Dán thông tin của anh/chị vào 2 biến dưới đây)
+const TELEGRAM_BOT_TOKEN = ""; // Ví dụ: "7891234567:AAHxxx_xxxxxxxxxxxx" (Lấy từ @BotFather)
+const TELEGRAM_CHAT_ID = "";   // Ví dụ: "123456789" hoặc "-100123456789" (Lấy từ @userinfobot)
 
 function doPost(e) {
   return handleRequest(e);
@@ -20,7 +24,6 @@ function doGet(e) {
 
 function handleRequest(e) {
   const lock = LockService.getScriptLock();
-  // Khóa đồng bộ trong 10 giây để đảm bảo nhảy Mã Đơn Hàng chính xác khi có nhiều người đăng ký cùng lúc
   lock.tryLock(10000);
 
   try {
@@ -49,32 +52,31 @@ function handleRequest(e) {
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     let sheet = ss.getSheetByName(SHEET_NAME);
     
-    // Nếu chưa có trang tính 'Danh sach', tự động tạo và khởi tạo dòng tiêu đề
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
       sheet.appendRow(["TT", "Mã Đơn Hàng", "Họ và tên", "Điện thoại", "Email", "Trạng thái thanh toán"]);
     }
 
-    // Tự động sinh Mã Đơn Hàng KGV001 -> KGV999 dựa theo số dòng hiện có
     const lastRow = sheet.getLastRow();
-    // Giả sử hàng 1 là hàng Tiêu đề (Header)
     let nextNum = lastRow > 0 ? lastRow : 1;
     const orderId = "KGV" + String(nextNum).padStart(3, "0");
-
-    // Thời gian nhập liệu (Dấu dòng thời gian GMT+7)
     const timestamp = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss");
 
-    // Ghi dữ liệu vào trang tính (Cột A đến F)
+    // 1. Ghi dữ liệu vào Google Sheet
     sheet.appendRow([
       timestamp,   // Cột A: TT (Thời gian nhập liệu)
       orderId,     // Cột B: Mã Đơn Hàng (KGVxxx)
       name,        // Cột C: Họ và tên
       phone,       // Cột D: Điện thoại
       email,       // Cột E: Email
-      "UNPAID"     // Cột F: Trạng thái thanh toán (Mặc định UNPAID)
+      "UNPAID"     // Cột F: Trạng thái thanh toán
     ]);
 
-    // Trả về JSON thành công kèm theo Mã Đơn Hàng vừa tạo
+    // 2. Gửi thông báo tự động về Telegram Bot (Nếu đã điền Token & Chat ID)
+    if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+      sendTelegramNotification(orderId, name, phone, email, timestamp);
+    }
+
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
       orderId: orderId,
@@ -92,5 +94,40 @@ function handleRequest(e) {
 
   } finally {
     lock.releaseLock();
+  }
+}
+
+/**
+ * Hàm gửi tin nhắn thông báo đơn hàng mới về Telegram
+ */
+function sendTelegramNotification(orderId, name, phone, email, timestamp) {
+  try {
+    const message = 
+      "🔔 *ĐƠN HÀNG MỚI - KHOÁ HỌC GIAO VIỆC*\n" +
+      "-----------------------------------\n" +
+      "🆔 *Mã đơn hàng:* `" + orderId + "`\n" +
+      "👤 *Họ và tên:* " + name + "\n" +
+      "📞 *Điện thoại:* `" + phone + "`\n" +
+      "📧 *Email:* " + email + "\n" +
+      "💰 *Số tiền:* 890.000 VNĐ\n" +
+      "⏰ *Thời gian:* " + timestamp + "\n" +
+      "📌 *Trạng thái:* `UNPAID` (Đang chờ quét VietQR)";
+
+    const payload = {
+      chat_id: TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: "Markdown"
+    };
+
+    const options = {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    };
+
+    UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
+  } catch (err) {
+    console.warn("Lỗi gửi thông báo Telegram:", err);
   }
 }
