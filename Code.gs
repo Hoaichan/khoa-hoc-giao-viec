@@ -10,9 +10,9 @@
 const SPREADSHEET_ID = "1-kU84hAZpjZffVpP5_Iv5Z7L4QPjkYM_wxKqvIfDxgc";
 const SHEET_NAME = "Danh sach";
 
-// 🤖 CẤU HÌNH TELEGRAM BOT (Dán thông tin của anh/chị vào 2 biến dưới đây)
-const TELEGRAM_BOT_TOKEN = ""; // Ví dụ: "7891234567:AAHxxx_xxxxxxxxxxxx" (Lấy từ @BotFather)
-const TELEGRAM_CHAT_ID = "";   // Ví dụ: "123456789" hoặc "-100123456789" (Lấy từ @userinfobot)
+// 🤖 CẤU HÌNH TELEGRAM BOT
+const TELEGRAM_BOT_TOKEN = "8945029594:AAGpux7Dqv59x1eLBSpcmpRM4egvkqWxh5s"; 
+const TELEGRAM_CHAT_ID = "5488178864";   
 
 function doPost(e) {
   return handleRequest(e);
