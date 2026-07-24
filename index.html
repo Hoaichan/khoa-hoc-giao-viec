@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giao Việc Dễ Dàng, Sếp Càng Thảnh Thơi | Khóa Học Lãnh Đạo Khai Vấn</title>
+  <meta name="description" content="Khóa học Lãnh đạo Khai vấn 4 buổi qua Zoom giúp Chủ doanh nghiệp & Quản lý giải phóng 50% thời gian điều hành, kích hoạt đội ngũ tự chủ 100% trách nhiệm.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Giao Việc Dễ Dàng, Sếp Càng Thảnh Thơi">
+  <meta property="og:description" content="Giải phóng 50% thời gian điều hành và xây dựng đội ngũ tự vận hành với Quy trình 12 bước Coaching Matrix.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              600: '#0284c7',
+              800: '#075985',
+              900: '#0c4a6e',
+              dark: '#0b132b',
+            },
+            accent: {
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            action: {
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Be Vietnam Pro', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Top Sticky Banner -->
+  <div class="bg-gradient-to-r from-red-600 via-orange-600 to-amber-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-inner">
+    🔥 <span>Chỉ còn <strong>5 suất ưu đãi</strong> giảm 70% dành cho 20 Nhà quản trị đăng ký sớm nhất hôm nay!</span>
+  </div>
+
+  <!-- Header / Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <img src="Chi Hoan.jpg" alt="LS / Coach Helen Đào Thúy Hoàn" class="w-10 h-10 rounded-xl object-cover shadow-md border-2 border-amber-400">
+        <div>
+          <span class="font-bold text-slate-900 text-base sm:text-lg block leading-none">HELEN ĐÀO THÚY HOÀN</span>
+          <span class="text-xs text-slate-500 font-medium">Lãnh Đạo Khai Vấn & Triết Lý Trung Dung</span>
+        </div>
+      </div>
+      <a href="javascript:void(0)" onclick="openRegistrationModal()" class="hidden sm:inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all hover:scale-105">
+        Đăng Ký Ưu Đãi
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-indigo-950 text-white">
+    <!-- Ambient Background Lighting -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+      
+      <!-- Speaker Tag & Sub-tag badge -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-white text-xs font-semibold shadow-md">
+          <img src="Chi Hoan.jpg" alt="Coach Helen Đào Thúy Hoàn" class="w-6 h-6 rounded-full object-cover border border-amber-400">
+          <span>LS/Coach Helen Đào Thúy Hoàn</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs sm:text-sm font-semibold">
+          <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
+          Giải pháp thoát khỏi vòng lặp "Sếp Ôm Việc - Nhân Sự Thụ Động"
+        </div>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+        GIAO VIỆC DỄ DÀNG,<br class="hidden sm:block">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200">SẾP CÀNG THẢNH THƠI</span>
+      </h1>
+
+      <!-- Promise Subheadline -->
+      <p class="text-lg sm:text-2xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-8">
+        Cách để giải phóng <strong class="text-amber-400 font-bold">50% thời gian điều hành</strong> và kích hoạt đội ngũ <strong class="text-white font-bold">tự chủ nhận trách nhiệm 100%</strong> chỉ trong 8 giờ (4 buổi Zoom trực tuyến).
+      </p>
+
+      <!-- Sub-headline Caveat -->
+      <p class="text-sm sm:text-base text-slate-400 italic mb-10 max-w-2xl mx-auto">
+        (Ngay cả khi bạn đã thử đủ mọi phần mềm Trello, Base, viết hàng tá SOP nhưng nhân viên vẫn liên tục hỏi: "Anh/Chị ơi, cái này làm thế nào?")
+      </p>
+
+      <!-- Primary CTA Box -->
+      <div class="max-w-xl mx-auto bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+          <div class="text-left">
+            <span class="text-xs text-slate-300 uppercase tracking-wider block">Học phí ưu đãi hôm nay:</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-extrabold text-amber-400">890.000đ</span>
+              <span class="text-sm text-slate-400 line-through">6.800.000đ</span>
+            </div>
+          </div>
+          <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-xs px-3 py-1 rounded-full font-bold">
+            Tiết kiệm 70%
+          </span>
+        </div>
+
+        <a href="javascript:void(0)" onclick="openRegistrationModal()" class="block w-full py-4 px-8 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-lg sm:text-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-[1.02] transition-all text-center">
+          👉 ĐĂNG KÝ GIỮ SUẤT ƯU ĐÃI NGAY
+        </a>
+        
+        <p class="text-xs text-slate-400 mt-3 flex items-center justify-center gap-2">
+          <span>🔒 Cam kết bảo mật thông tin</span>
+          <span>•</span>
+          <span>⚡ Hỗ trợ trực tiếp qua Zalo</span>
+        </p>
+      </div>
+
+      <!-- Trust Badges / Social Proof -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-300 text-xs sm:text-sm border-t border-slate-800 pt-8">
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-amber-400 text-lg">⭐</span>
+          <span><strong>4 Buổi Zoom</strong> thực chiến</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-emerald-400 text-lg">🎁</span>
+          <span><strong>Bộ 5 Quà Tặng</strong> biểu mẫu SOPs</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-blue-400 text-lg">💡</span>
+          <span><strong>12 Bước</strong> Coaching Matrix</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-purple-400 text-lg">🏆</span>
+          <span><strong>LS/Coach Helen</strong> dẫn dắt</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pain Points Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <span class="text-red-600 font-bold text-sm tracking-wider uppercase">Bức Tranh Thực Tế</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          Có Phải Bạn Đang Làm Chủ Nhưng Thực Chất Là "Làm Thụ Thụ" Cho Chính Công Ty Mình?
+        </h2>
+      </div>
+
+      <div class="bg-red-50/50 border border-red-100 p-6 sm:p-8 rounded-2xl mb-8">
+        <p class="text-base sm:text-lg text-slate-700 italic leading-relaxed mb-6">
+          "Tôi làm chủ mà tưởng như đang làm thuê cho chính công ty của mình. Tối muộn đi ăn với gia đình mà điện thoại vẫn nổ thông báo Zalo liên tục. Cứ vắng tôi một ngày là mọi thứ hỗn loạn..."
+        </p>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Mỗi sáng bước vào văn phòng, bạn lại đối mặt với một danh sách dài những công việc cần "chữa cháy". Bạn vắt óc suy nghĩ chiến lược, nhưng thời gian trong ngày lại bị xé nhỏ bởi những câu hỏi ngây ngô từ cấp dưới. Nhân viên không dám tự quyết, không chịu nhận trách nhiệm, và hễ gặp rào cản là đẩy ngược bài toán về cho sếp.
+        </p>
+      </div>
+
+      <!-- 5 Everyday Pain Points Grid -->
+      <h3 class="text-lg font-bold text-slate-900 mb-4">5 Căn bệnh "Micro-Management" đang tàn phá sức khỏe & thời gian của bạn:</h3>
+      <div class="grid sm:grid-cols-2 gap-4 mb-10">
+        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-red-500 text-xl font-bold">✕</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Nhân sự thụ động</h4>
+            <p class="text-xs text-slate-600 mt-1">Giao việc xong nhưng nhân viên không triển khai, hoặc làm chống đối cho có rồi chờ sếp chỉ tay 5 ngón.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-red-500 text-xl font-bold">✕</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Sếp gánh trách nhiệm thay</h4>
+            <p class="text-xs text-slate-600 mt-1">Khi dự án trễ hạn hoặc làm sai, bạn lại là người phải thức đêm sửa bài, dọn dẹp hậu quả.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-red-500 text-xl font-bold">✕</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Thời gian bị xé nhỏ</h4>
+            <p class="text-xs text-slate-600 mt-1">Bị làm phiền liên tục cả ngày bởi những quyết định sự vụ nhỏ nhặt từ cấp dưới.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-red-500 text-xl font-bold">✕</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Mất kết nối với đội ngũ</h4>
+            <p class="text-xs text-slate-600 mt-1">Càng áp đặt, nhân viên càng co lại, tạo ra khoảng cách và sự kháng cự ngầm.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200 sm:col-span-2">
+          <span class="text-red-500 text-xl font-bold">✕</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Kiệt sức & Mất bình an nội tâm</h4>
+            <p class="text-xs text-slate-600 mt-1">Làm việc 12-14 tiếng/ngày nhưng không thấy doanh nghiệp bứt phá, gia đình và sức khỏe bị bỏ quên.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Failed Solutions Agitation -->
+  <section class="py-16 bg-slate-100 border-y border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+          Vì Sao Các Phương Pháp Quản Trị Cũ Lại Thất Bại?
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">Bạn đã thử đủ mọi cách mà các "chuyên gia" khuyên bảo, nhưng kết quả vẫn giậm chân tại chỗ:</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 flex items-start gap-4">
+          <span class="bg-slate-100 text-slate-500 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shrink-0">1</span>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">Mua phần mềm quản lý công việc (Trello, Base, Notion...)</h3>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1"><strong class="text-red-600">Thất bại:</strong> Nhân viên chỉ nhập dữ liệu cho có, phần mềm thành cái kho chứa việc bỏ hoang vì thiếu tư duy vận hành.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 flex items-start gap-4">
+          <span class="bg-slate-100 text-slate-500 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shrink-0">2</span>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">Viết quy trình SOP chi tiết từng bước</h3>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1"><strong class="text-red-600">Thất bại:</strong> Quy trình nằm trên giấy, khi gặp tình huống thực tế nhân viên vẫn chạy vào hỏi sếp xử lý thế nào.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 flex items-start gap-4">
+          <span class="bg-slate-100 text-slate-500 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shrink-0">3</span>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">Áp đặt KPI & tăng cường giám sát vi mô</h3>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1"><strong class="text-red-600">Thất bại:</strong> Khiến không khí căng thẳng, nhân sự giỏi bỏ đi, nhân sự ở lại thì chống đối ngầm.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 flex items-start gap-4">
+          <span class="bg-slate-100 text-slate-500 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shrink-0">4</span>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">"Tự tay làm luôn cho nhanh!"</h3>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1"><strong class="text-red-600">Thất bại:</strong> Khiến sếp sa lầy vào sự vụ, nhân viên ngày càng ỷ lại và hoàn toàn ngừng tư duy sáng tạo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- The Shift / Mindset Solution -->
+  <section class="py-16 bg-gradient-to-br from-blue-900 to-indigo-950 text-white relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <div class="text-center mb-10">
+        <span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">Khám Phá Cốt Lõi</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-3 leading-snug">
+          80% Vấn Đề Hiệu Suất Không Đến Từ Năng Lực Nhân Viên,<br>
+          Mà Đến Từ <span class="text-amber-400">Cách Lãnh Đạo Giao Việc!</span>
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6 text-sm">
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+          <h3 class="font-bold text-lg text-amber-300 mb-2">❌ Sếp Áp Đặt = Nhân Sự Ngừng Tư Duy</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Khi sếp đưa ra giải pháp ngay lập tức, bộ não của nhân sự sẽ tự động chuyển sang chế độ "làm theo lệnh" và từ bỏ 100% trách nhiệm với kết quả cuối cùng.
+          </p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+          <h3 class="font-bold text-lg text-emerald-300 mb-2">✅ CÂU HỎI Mới Tạo Ra Sự CAM KẾT</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Mệnh lệnh chỉ tạo ra sự tuân thủ hời hợt. Muốn nhân sự tự chủ, sếp phải chuyển từ <strong>Chỉ đạo (Telling)</strong> sang <strong>Khai vấn (Coaching)</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Solution Intro Banner -->
+      <div class="mt-12 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 p-6 sm:p-8 rounded-2xl font-medium shadow-2xl text-center">
+        <h3 class="text-xl sm:text-2xl font-black uppercase mb-2">GIẢI PHÁP LÃNH ĐẠO KHAI VẤN THỰC CHIẾN</h3>
+        <p class="text-sm sm:text-base font-semibold max-w-2xl mx-auto">
+          Kết hợp Nghệ thuật Khai vấn Phương Tây với Triết lý Trung Dung Phương Đông, giúp sếp giao việc chuẩn xác, trao quyền an toàn và tìm lại sự bình an nội tâm.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4 Pillars Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">Hệ Thống Đào Tạo</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          4 Trụ Cột Năng Lực Thiết Yếu Mọi Nhà Quản Trị Cần Có
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        
+        <!-- Pillar 1 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-500 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl mb-4">1</div>
+          <h3 class="font-extrabold text-slate-900 text-xl mb-2">TRỤ CỘT I: NỀN TẢNG TƯ DUY (MINDSET)</h3>
+          <p class="text-sm font-semibold text-blue-700 mb-2">7 Nguyên Tắc Khai Vấn Cốt Lõi</p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+            Loại bỏ tư duy áp đặt, chuyển sang cam kết hai chiều và niềm tin tuyệt đối rằng giải pháp thuộc về chính nhân sự.
+          </p>
+          <div class="text-xs bg-blue-50 text-blue-900 p-3 rounded-lg font-medium">
+            💡 <strong>Giá trị:</strong> Giúp sếp thoát khỏi gánh nặng phải có câu trả lời cho mọi thứ.
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl mb-4">2</div>
+          <h3 class="font-extrabold text-slate-900 text-xl mb-2">TRỤ CỘT II: BỘ KỸ NĂNG (SKILLSET)</h3>
+          <p class="text-sm font-semibold text-emerald-700 mb-2">5 Kỹ Năng Coaching Quyền Lực</p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+            Làm chủ kỹ năng đặt câu hỏi Win-Win, Lắng nghe 4 cấp độ (Otto Scharmer), Phản hồi công thức 1-1-3 và Cảm nhận trực giác.
+          </p>
+          <div class="text-xs bg-emerald-50 text-emerald-900 p-3 rounded-lg font-medium">
+            💡 <strong>Giá trị:</strong> Phản hồi chuẩn xác mà không gây ức chế hay chống đối ngầm.
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-purple-500 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-xl mb-4">3</div>
+          <h3 class="font-extrabold text-slate-900 text-xl mb-2">TRỤ CỘT III: CÔNG CỤ THỰC THI (TOOLSET)</h3>
+          <p class="text-sm font-semibold text-purple-700 mb-2">Quy Trình 12 Bước Kỳ Diệu (Coaching Matrix)</p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+            Bản đồ 12 bước dẫn dắt từ xây dựng mục tiêu SMART, khai nguồn động lực đến chốt cam kết hành động cụ thể.
+          </p>
+          <div class="text-xs bg-purple-50 text-purple-900 p-3 rounded-lg font-medium">
+            💡 <strong>Giá trị:</strong> Đảm bảo giao việc là nhân sự làm đúng, đo lường mức độ cam kết.
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-500 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-xl mb-4">4</div>
+          <h3 class="font-extrabold text-slate-900 text-xl mb-2">TRỤ CỘT IV: GIAO VIỆC & TRAO QUYỀN</h3>
+          <p class="text-sm font-semibold text-amber-700 mb-2">Nghệ Thuật Ủy Quyền Chuẩn Trung Dung</p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+            Bắt đầu bằng lý do (WHY) trước khi bàn cách làm (HOW), kích thích nhân sự tự lập kế hoạch chủ động 100%.
+          </p>
+          <div class="text-xs bg-amber-50 text-amber-900 p-3 rounded-lg font-medium">
+            💡 <strong>Giá trị:</strong> Bộ máy tự vận hành trôi chảy ngay cả khi sếp nghỉ phép dài ngày.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4-Session Curriculum Breakdown -->
+  <section class="py-16 bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <span class="text-amber-400 font-bold text-sm uppercase tracking-wider">Lộ Trình Học Tập</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+          Lộ Trình 4 Buổi Học Bứt Phá (8 Giờ Qua Zoom)
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        
+        <!-- Session 1 -->
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+          <div class="flex items-center justify-between gap-4 mb-3 border-b border-slate-700 pb-3">
+            <span class="text-amber-400 font-extrabold text-lg">BUỔI 1: NỀN TẢNG TƯ DUY (MINDSET)</span>
+            <span class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300">20:00 - 22:00</span>
+          </div>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+            <li class="flex items-start gap-2">✓ Khai mở tư duy Lãnh đạo Khai vấn, xóa bỏ hoàn toàn thói quen áp đặt mệnh lệnh cũ kỹ.</li>
+            <li class="flex items-start gap-2">✓ Thấu hiểu 7 Nguyên tắc Khai vấn cốt lõi giúp sếp và nhân sự cam kết hai chiều.</li>
+            <li class="flex items-start gap-2">✓ Thiết lập tư duy Không phán xét – Chuyển từ tò mò sang thấu hiểu.</li>
+            <li class="flex items-start gap-2">✓ Ứng dụng nguyên tắc BE - DO - HAVE và niềm tin giải pháp thuộc về chính nhân sự.</li>
+          </ul>
+        </div>
+
+        <!-- Session 2 -->
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+          <div class="flex items-center justify-between gap-4 mb-3 border-b border-slate-700 pb-3">
+            <span class="text-emerald-400 font-extrabold text-lg">BUỔI 2: BỘ KỸ NĂNG (SKILLSET)</span>
+            <span class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300">20:00 - 22:00</span>
+          </div>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+            <li class="flex items-start gap-2">✓ Sở hữu 5 kỹ năng Coaching quyền lực để thấu hiểu và kích thích nhận thức của nhân viên.</li>
+            <li class="flex items-start gap-2">✓ Kỹ năng đặt câu hỏi tập trung vào WHY & WIN-WIN, loại bỏ sự phòng thủ.</li>
+            <li class="flex items-start gap-2">✓ Kỹ năng Lắng nghe sâu 4 cấp độ (TS. Otto Scharmer) để thấu cảm nhân sự.</li>
+            <li class="flex items-start gap-2">✓ Công thức phản hồi 1-1-3 dựa trên hành vi thực tế và nghệ thuật tạo thiện cảm (Rapport).</li>
+          </ul>
+        </div>
+
+        <!-- Session 3 -->
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+          <div class="flex items-center justify-between gap-4 mb-3 border-b border-slate-700 pb-3">
+            <span class="text-purple-400 font-extrabold text-lg">BUỔI 3: CÔNG CỤ THỰC THI (TOOLSET)</span>
+            <span class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300">20:00 - 22:00</span>
+          </div>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+            <li class="flex items-start gap-2">✓ Làm chủ Quy trình 12 bước kỳ diệu (Coaching Matrix) để dẫn dắt mọi buổi giao việc.</li>
+            <li class="flex items-start gap-2">✓ Xây dựng bối cảnh, niềm tin và thiết lập mục tiêu chuẩn SMART.</li>
+            <li class="flex items-start gap-2">✓ Khai nguồn động lực từ niềm vui/nỗi đau và kỹ thuật xử lý rào cản nội tại.</li>
+            <li class="flex items-start gap-2">✓ Phương pháp chốt cam kết hành động, đo lường mức độ cam kết và đúc kết bài học.</li>
+          </ul>
+        </div>
+
+        <!-- Session 4 -->
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+          <div class="flex items-center justify-between gap-4 mb-3 border-b border-slate-700 pb-3">
+            <span class="text-blue-400 font-extrabold text-lg">BUỔI 4: KỸ NĂNG GIAO VIỆC & TRAO QUYỀN</span>
+            <span class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300">20:00 - 22:00</span>
+          </div>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+            <li class="flex items-start gap-2">✓ Chuyển giao quyền lực thực sự, biến đội ngũ thành cỗ máy tự vận hành bền vững.</li>
+            <li class="flex items-start gap-2">✓ Bắt đầu bằng lý do (WHY) trước khi bàn đến cách làm (HOW).</li>
+            <li class="flex items-start gap-2">✓ Kích thích nhân sự tự lập kế hoạch bằng câu hỏi mở, sếp giữ vai trò điểm tựa cân bằng.</li>
+            <li class="flex items-start gap-2">✓ Xây dựng văn hóa ghi nhận, phản hồi tích cực và duy trì hiệu suất bền vững.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Before vs After Transformation Table -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">
+          Sự Lội Ngược Dòng Của Nhà Quản Trị
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">Sự thảnh thơi hoàn toàn nằm trong tầm tay khi bạn sở hữu đúng hệ thống</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm border-collapse rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <thead>
+            <tr class="bg-slate-900 text-white">
+              <th class="p-4 w-1/2 bg-red-900/60 font-extrabold text-center">TRƯỚC KHÓA HỌC ❌</th>
+              <th class="p-4 w-1/2 bg-emerald-900/60 font-extrabold text-center">SAU KHÓA HỌC ✅</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+            <tr class="bg-slate-50">
+              <td class="p-4 text-red-700">Sếp ôm việc từ sáng đến đêm, làm thay việc của nhân viên.</td>
+              <td class="p-4 text-emerald-800 font-semibold bg-emerald-50/40">Sếp giải phóng 50% thời gian, chỉ tập trung vào chiến lược và vĩ mô.</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-red-700">Nhân sự thụ động, hễ gặp khó khăn là đùn đẩy trách nhiệm.</td>
+              <td class="p-4 text-emerald-800 font-semibold bg-emerald-50/40">Đội ngũ chủ động lập kế hoạch, tự giác chịu trách nhiệm 100%.</td>
+            </tr>
+            <tr class="bg-slate-50">
+              <td class="p-4 text-red-700">Giao việc theo cảm tính, lúc áp đặt mệnh lệnh, lúc thả gạt.</td>
+              <td class="p-4 text-emerald-800 font-semibold bg-emerald-50/40">Giao việc bài bản theo Quy trình 12 bước Coaching Matrix chuẩn hóa.</td>
+            </tr>
+            <tr>
+              <td class="p-4 text-red-700">Nhắn tin, gọi điện nhắc việc liên tục; họp hành căng thẳng.</td>
+              <td class="p-4 text-emerald-800 font-semibold bg-emerald-50/40">Dẫn dắt nhẹ nhàng bằng câu hỏi, theo dõi tiến độ qua hệ thống.</td>
+            </tr>
+            <tr class="bg-slate-50">
+              <td class="p-4 text-red-700">Luôn cảm thấy lo âu, mất bình an, sợ công ty hỗn loạn khi vắng mặt.</td>
+              <td class="p-4 text-emerald-800 font-semibold bg-emerald-50/40">Giữ tâm thế Trung Dung, bình an nội tâm, tự tin để đội ngũ tự vận hành.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Instructor Section -->
+  <section class="py-16 bg-slate-100 border-y border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl flex flex-col md:flex-row gap-8 items-center">
+        
+        <div class="relative shrink-0">
+          <img src="Chi Hoan.jpg" alt="LS / Coach Helen Đào Thúy Hoàn" class="w-44 h-44 sm:w-56 sm:h-56 rounded-2xl object-cover shadow-2xl border-4 border-amber-400/90 hover:scale-[1.02] transition-all">
+          <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold text-xs px-3 py-1 rounded-full shadow-lg border border-amber-300 whitespace-nowrap">
+            Coach Helen Đào Thúy Hoàn
+          </span>
+        </div>
+
+        <div>
+          <span class="text-blue-600 font-bold text-xs uppercase tracking-wider">Giảng Viên & Người Đồng Hành</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">LS / Coach HELEN ĐÀO THÚY HOÀN</h3>
+          <p class="text-slate-500 font-medium text-xs sm:text-sm mb-4">Chuyên Gia Khai Vấn Quốc Tế • Nhà Đào Tạo Lãnh Đạo • Luật Sư</p>
+          
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+            Với bề dày kinh nghiệm tư vấn pháp lý và huấn luyện lãnh đạo cho hàng trăm doanh nghiệp tại Việt Nam, Coach Helen Đào Thúy Hoàn là người đi tiên phong trong việc kết hợp <strong>Nghệ thuật Khai vấn (Coaching)</strong> với <strong>Triết lý Trung Dung (Zhong Yong)</strong> giúp các nhà quản trị tìm lại sự thảnh thơi và cân bằng nội tâm.
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs font-semibold text-slate-700">
+            <span class="bg-slate-100 px-3 py-1 rounded-full border border-slate-200">✓ International Certified Coach</span>
+            <span class="bg-slate-100 px-3 py-1 rounded-full border border-slate-200">✓ Đào tạo 500+ Chủ doanh nghiệp</span>
+            <span class="bg-slate-100 px-3 py-1 rounded-full border border-slate-200">✓ Chuyên gia Triết lý Trung Dung</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonuses Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <span class="bg-amber-100 text-amber-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Đặc Quyền Bổ Trợ</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          🎁 Bộ 5 Quà Tặng Độc Quyền Đi Kèm
+        </h2>
+        <p class="text-slate-600 text-sm mt-1">Giải quyết 100% các rào cản triển khai thực tế của nhà quản trị</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        
+        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+          <span class="text-2xl">📊</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Mẫu Ma Trận Giao Việc & Theo Dõi Tiến Độ</h4>
+            <p class="text-xs text-slate-600 mt-1">File Excel/Google Sheet thông minh phân loại công việc và theo dõi tiến độ mà không cần nhắn tin đôn đốc hàng ngày.</p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+          <span class="text-2xl">🎴</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Bộ 50+ Câu Hỏi Khai Vấn Giao Việc</h4>
+            <p class="text-xs text-slate-600 mt-1">Tệp PDF bỏ túi chứa các câu hỏi "quyền lực" dùng ngay trong họp 1-1, bẻ gãy sự bào chữa và kích thích nhân viên tự tìm giải pháp.</p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+          <span class="text-2xl">🗣️</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Kịch Bản Phản Hồi 1-1-3 Kèm Biểu Mẫu</h4>
+            <p class="text-xs text-slate-600 mt-1">Công cụ chê đúng cách - khen đúng lúc, giúp nhân sự vui vẻ nhận lỗi và điều chỉnh hành vi ngay lập tức không bị tự ái.</p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+          <span class="text-2xl">📋</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Checklist 5 Bước Trao Quyền Chuẩn Trung Dung</h4>
+            <p class="text-xs text-slate-600 mt-1">Bảng kiểm đánh giá chính xác mức độ sẵn sàng của nhân sự trước khi giao việc lớn, tránh rủi ro "thả gạt" hỏng việc.</p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex items-start gap-4 sm:col-span-2">
+          <span class="text-2xl">🧘</span>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Mini-Widget Tracker: Nhật Ký Cân Bằng Năng Lượng Lãnh Đạo</h4>
+            <p class="text-xs text-slate-600 mt-1">Công cụ đo lường mức độ stress và quản lý năng lượng cá nhân hàng ngày, giúp sếp giữ tâm thế bình an, trung dung trước mọi áp lực điều hành.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pricing & Registration Trigger Section -->
+  <section id="dang-ky" class="py-16 bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white relative">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <div class="text-center mb-10">
+        <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">Đăng Ký Trực Tiếp</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">
+          Nhận Ngay Ưu Đãi Đăng Ký Hôm Nay
+        </h2>
+        <p class="text-slate-400 text-sm mt-2">Chỉ còn 5 suất ưu đãi cuối cùng cho phiên học này!</p>
+      </div>
+
+      <div class="bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 text-center">
+        
+        <div class="border-b border-slate-200 pb-8 mb-8">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Học phí trọn gói khóa học + Bộ 5 quà tặng:</span>
+          <div class="flex items-center justify-center gap-3 mt-2 mb-2">
+            <span class="text-4xl sm:text-5xl font-black text-emerald-600">890.000đ</span>
+            <span class="text-xl text-slate-400 line-through">6.800.000đ</span>
+          </div>
+          <span class="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">
+            🔥 Đã giảm 70% giá gốc
+          </span>
+        </div>
+
+        <div class="space-y-4 max-w-md mx-auto">
+          <p class="text-sm text-slate-600">Nhấn nút bên dưới để điền thông tin đăng ký và nhận mã thanh toán VietQR chuyển khoản tự động:</p>
+          
+          <button onclick="openRegistrationModal()" class="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-lg sm:text-xl shadow-xl shadow-emerald-600/30 hover:scale-[1.02] transition-all">
+            👉 ĐĂNG KÝ HỌC & NHẬN MÃ THANH TOÁN
+          </button>
+
+          <p class="text-xs text-slate-400 flex items-center justify-center gap-2 pt-2">
+            <span>✓ Bảo mật 100%</span>
+            <span>•</span>
+            <span>✓ Nhận tài liệu tức thì</span>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accordion) -->
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+          Câu Hỏi Thường Gặp (FAQ)
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50 transition">
+            1. Khóa học diễn ra dưới hình thức nào và vào thời gian nào?
+            <span class="faq-icon text-xl text-slate-400 font-normal">+</span>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-600 border-t border-slate-100">
+            Khóa học diễn ra trực tuyến 100% qua Zoom trong 4 buổi vào các buổi tối (20:00 - 22:00). Học viên được tương tác và thực hành trực tiếp bài tập giao việc ngay tại lớp với Coach Helen.
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50 transition">
+            2. Nhân viên của tôi trình độ còn hạn chế, liệu có áp dụng được Khai vấn không?
+            <span class="faq-icon text-xl text-slate-400 font-normal">+</span>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-600 border-t border-slate-100">
+            Hoàn toàn được. Bộ câu hỏi trong Quy trình 12 bước Coaching Matrix được thiết kế cực kỳ đơn giản và thực chiến, giúp dẫn dắt nhân sự từ chưa biết làm đến tự mình tìm ra giải pháp.
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50 transition">
+            3. Nếu tôi bận nghỉ một buổi học thì có được học bù không?
+            <span class="faq-icon text-xl text-slate-400 font-normal">+</span>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-600 border-t border-slate-100">
+            Có. Tất cả các buổi học đều được ghi hình (Video Recording) và gửi lại cho học viên xem lại trong nhóm kín. Ngoài ra anh/chị có thể tham gia học bù ở khóa tiếp theo hoàn toàn miễn phí.
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <button class="faq-toggle w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50 transition">
+            4. Làm sao để tôi nhận bộ 5 quà tặng đi kèm?
+            <span class="faq-icon text-xl text-slate-400 font-normal">+</span>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-slate-600 border-t border-slate-100">
+            Ngay sau khi hoàn tất thanh toán đăng ký, bộ phận trợ giảng sẽ liên hệ qua Zalo và gửi link truy cập trọn bộ File tài liệu Excel, PDF và các biểu mẫu đi kèm.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-12 px-4 sm:px-6 border-t border-slate-800 text-xs text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <p class="font-bold text-white text-base">GIAO VIỆC DỄ DÀNG - SẾP CÀNG THẢNH THƠI</p>
+      <p>Chương trình Đào tạo Lãnh Đạo Khai Vấn & Triết Lý Trung Dung cho Nhà Quản Trị SME</p>
+      <p class="text-slate-600">Copyright © 2026 Helen Đào Thúy Hoàn. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Registration Popup Modal -->
+  <div id="registration-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+    <div class="relative w-full max-w-lg bg-white text-slate-900 rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8 animate-in fade-in zoom-in duration-200">
+      
+      <!-- Close Button -->
+      <button onclick="closeRegistrationModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 flex items-center justify-center font-bold text-xl transition-all z-10">
+        ✕
+      </button>
+
+      <!-- STEP 1: Registration Form -->
+      <div id="modal-step-form" class="p-6 sm:p-8">
+        <div class="text-center mb-6">
+          <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full inline-block mb-2">
+            🔥 Ưu đãi 70% dành cho 20 người sớm nhất
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Đăng Ký Khóa Học</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1">Điền 3 thông tin dưới đây để nhận suất ưu đãi <strong>890.000đ</strong> (Giá gốc 6.800.000đ)</p>
+        </div>
+
+        <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">1. Họ và Tên (*)</label>
+            <input type="text" id="reg-name" required placeholder="Nhập họ và tên của anh/chị" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">2. Số Điện Thoại (*)</label>
+            <input type="tel" id="reg-phone" required placeholder="Nhập số điện thoại Zalo" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">3. Địa Chỉ Email (*)</label>
+            <input type="email" id="reg-email" required placeholder="Nhập địa chỉ email" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+          </div>
+
+          <button type="submit" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-lg shadow-lg shadow-emerald-600/30 hover:scale-[1.01] transition-all mt-2">
+            👉 TIẾP TỤC ĐỂ THANH TOÁN (MÃ VIETQR)
+          </button>
+        </form>
+        <p class="text-center text-xs text-slate-400 mt-4">🔒 Thông tin của anh/chị được bảo mật 100%</p>
+      </div>
+
+      <!-- STEP 2: VietQR Payment Display -->
+      <div id="modal-step-payment" class="hidden p-6 sm:p-8 text-center bg-slate-50">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
+          <span>✓ Đã đăng ký thông tin thành công!</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Quét Mã VietQR Thanh Toán</h3>
+        <p class="text-xs text-slate-600 mb-4">Sử dụng ứng dụng Ngân hàng (App Mobile Banking) quét mã QR bên dưới để thanh toán giữ chỗ:</p>
+
+        <!-- VietQR Image -->
+        <div class="bg-white p-3 rounded-2xl shadow-md border border-slate-200 inline-block mb-4">
+          <img id="qr-code-img" 
+               src="https://vietqr.app/img?bank=MBBank&acc=8888161161&template=compact&showinfo=true&holder=CT%20CP%20DICH%20VU%20VA%20GIAI%20PHAP%20SO%20MYP" 
+               alt="VietQR Thanh Toán Khóa Học" 
+               class="w-64 h-auto mx-auto object-contain rounded-lg">
+        </div>
+
+        <!-- Bank Details -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1.5 font-mono text-left max-w-sm mx-auto mb-6 shadow-sm">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Ngân hàng:</span>
+            <strong class="text-slate-900">MBBank</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Số tài khoản:</span>
+            <strong class="text-emerald-700 font-bold text-sm">8888161161</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Chủ tài khoản:</span>
+            <strong class="text-slate-900 text-[10px]">CT CP DICH VU VA GIAI PHAP SO MYP</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Số tiền:</span>
+            <strong class="text-amber-600 font-bold">890.000 VNĐ</strong>
+          </div>
+          <div class="flex justify-between border-t border-slate-100 pt-1.5">
+            <span class="text-slate-400">Nội dung CK:</span>
+            <strong id="customer-memo" class="bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded text-[10px]">GIAOVIEC [Tên] [SĐT]</strong>
+          </div>
+        </div>
+
+        <button onclick="confirmPaymentFinished()" class="w-full py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-base shadow-md transition-all">
+          ✅ ĐÃ HOÀN TẤT THANH TOÁN
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+        const isHidden = content.classList.contains('hidden');
+        
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+
+        if (isHidden) {
+          content.classList.remove('hidden');
+          icon.textContent = '−';
+        }
+      });
+    });
+
+    // Registration Modal Functions
+    function openRegistrationModal() {
+      document.getElementById('registration-modal').classList.remove('hidden');
+      document.getElementById('modal-step-form').classList.remove('hidden');
+      document.getElementById('modal-step-payment').classList.add('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeRegistrationModal() {
+      document.getElementById('registration-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // GOOGLE APPS SCRIPT WEB APP URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzavt2-1JI2CZRhUGp0TXfGn3szCXKdIZzoPapb5CyDENigXEr_lgYEBZ5oujj69Trpeg/exec"; 
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+
+      if (!name || !phone || !email) {
+        alert('Vui lòng điền đầy đủ 3 trường thông tin: Họ và tên, Số điện thoại và Email.');
+        return;
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Đang khởi tạo đơn hàng...';
+
+      let orderId = "KGV" + Math.floor(100 + Math.random() * 900); // Mã mặc định nếu chưa gắn Apps Script URL
+
+      // Gửi dữ liệu tới Google Apps Script (Nếu đã cấu hình URL)
+      if (APPS_SCRIPT_URL) {
+        try {
+          const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ name, phone, email })
+          });
+          const result = await response.json();
+          if (result && result.orderId) {
+            orderId = result.orderId;
+          }
+        } catch (err) {
+          console.warn('Gửi Apps Script thất bại hoặc chưa bật CORS, tiếp tục với mã đơn hàng tự động:', err);
+        }
+      }
+
+      // Nội dung chuyển khoản chuẩn: Mã Đơn Hàng + SĐT (Ví dụ: KGV001 0987654321)
+      const memoText = `${orderId} ${phone}`;
+      document.getElementById('customer-memo').textContent = memoText;
+      
+      const encodedMemo = encodeURIComponent(memoText);
+      const qrUrl = `https://vietqr.app/img?bank=MBBank&acc=8888161161&template=compact&showinfo=true&holder=CT%20CP%20DICH%20VU%20VA%20GIAI%20PHAP%20SO%20MYP&amount=890000&memo=${encodedMemo}`;
+      document.getElementById('qr-code-img').src = qrUrl;
+
+      // Khôi phục nút bấm & Chuyển sang Bước 2 Thanh toán VietQR
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+
+      document.getElementById('modal-step-form').classList.add('hidden');
+      document.getElementById('modal-step-payment').classList.remove('hidden');
+    }
+
+    function confirmPaymentFinished() {
+      alert('Cảm ơn anh/chị đã hoàn tất đăng ký và thanh toán! Hệ thống sẽ kiểm tra và xác nhận kích hoạt tài khoản trong ít phút.');
+      closeRegistrationModal();
+    }
+  </script>
+
+</body>
+</html>
