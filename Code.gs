@@ -14,6 +14,15 @@ const SHEET_NAME = "Danh sach";
 const TELEGRAM_BOT_TOKEN = "8945029594:AAGpux7Dqv59x1eLBSpcmpRM4egvkqWxh5s"; 
 const TELEGRAM_CHAT_ID = "5488178864";   
 
+/**
+ * HÀM CHẠY THỬ ĐỂ CẤP QUYỀN (AUTHORIZE) GỬI TELEGRAM
+ * Anh/chị chọn hàm này và bấm nút "Run" trên Apps Script để cấp quyền!
+ */
+function testTelegram() {
+  const timestamp = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss");
+  sendTelegramNotification("KGVTEST", "Nguyễn Văn Test", "0987654321", "test@gmail.com", timestamp);
+}
+
 function doPost(e) {
   return handleRequest(e);
 }
@@ -123,7 +132,7 @@ function sendTelegramNotification(orderId, name, phone, email, timestamp) {
       method: "post",
       contentType: "application/json",
       payload: JSON.stringify(payload),
-      muteHttpExceptions: true
+      muteHttpExceptions: false
     };
 
     const response = UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
