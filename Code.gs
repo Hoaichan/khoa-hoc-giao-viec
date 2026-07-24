@@ -64,8 +64,8 @@ function handleRequest(e) {
       data = e.parameter;
     }
 
-    // ⚡ NẾU LÀ SEPAY WEBHOOK (Có chứa tiền vào transferAmount / gateway / content)
-    if (data.gateway || data.transferType || data.transferAmount || (data.content && data.content.includes("KGV"))) {
+    // ⚡ NẾU LÀ SEPAY WEBHOOK (Có chứa transferAmount / gateway / content / id)
+    if (data.gateway || data.transferType || data.transferAmount !== undefined || data.id || (data.content && String(data.content).length > 0)) {
       return handleSePayWebhook(data);
     }
 
@@ -140,10 +140,17 @@ function handleSePayWebhook(data) {
 
     // Tìm mã đơn dạng KGVxxx trong nội dung chuyển khoản
     const match = content.match(/KGV\d{3}/i);
+
+    // NẾU LÀ GỬI THỬ TỪ SEPAY (Nội dung không chứa KGVxxx)
     if (!match) {
+      // Gửi tin nhắn xác nhận SePay kết nối thành công về Telegram
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+        sendTelegramSimpleMessage("🧪 <b>SEPAY WEBHOOK KẾT NỐI THÀNH CÔNG!</b>\n-----------------------------------\nĐã nhận thành công dữ liệu gửi thử nghiệm từ SePay Dashboard.");
+      }
+
       return ContentService.createTextOutput(JSON.stringify({
-        status: "ignored",
-        message: "Không tìm thấy mã KGV trong nội dung chuyển khoản"
+        status: "success",
+        message: "Đã nhận Webhook thử nghiệm SePay thành công!"
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -189,6 +196,11 @@ function handleSePayWebhook(data) {
         message: "Đã cập nhật trạng thái PAID cho đơn " + orderId
       })).setMimeType(ContentService.MimeType.JSON);
     } else {
+      // Nếu có mã KGVxxx nhưng không thấy dòng tương ứng (Có thể do đơn cũ)
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+        sendTelegramSimpleMessage("⚠️ <b>NHẬN THANH TOÁN SEPAY (" + escapeHtml(orderId) + ")</b>\nSố tiền: " + Number(amount).toLocaleString('vi-VN') + " VNĐ\nNội dung: " + escapeHtml(content) + "\n<i>(Không tìm thấy dòng trên Google Sheet)</i>");
+      }
+
       return ContentService.createTextOutput(JSON.stringify({
         status: "not_found",
         message: "Không tìm thấy dòng tương ứng cho " + orderId
@@ -226,7 +238,7 @@ function getOrderStatus(orderId) {
 }
 
 /**
- * Hàm gửi tin nhắn thông báo về Telegram Bot (Tạo mới đơn & Xác nhận thanh toán thành công)
+ * Hàm gửi tin nhắn thông báo về Telegram Bot
  */
 function sendTelegramNotification(orderId, name, phone, email, timestamp, status, amount) {
   try {
@@ -254,9 +266,17 @@ function sendTelegramNotification(orderId, name, phone, email, timestamp, status
       "📌 <b>Trạng thái:</b> " + statusText + "\n\n" +
       "🔗 <b>Link nhóm Telegram:</b> " + TELEGRAM_GROUP_LINK;
 
+    sendTelegramSimpleMessage(message);
+  } catch (err) {
+    Logger.log("Lỗi gửi thông báo Telegram: " + err);
+  }
+}
+
+function sendTelegramSimpleMessage(textMessage) {
+  try {
     const payload = {
       chat_id: TELEGRAM_CHAT_ID,
-      text: message,
+      text: textMessage,
       parse_mode: "HTML"
     };
 
@@ -267,10 +287,9 @@ function sendTelegramNotification(orderId, name, phone, email, timestamp, status
       muteHttpExceptions: false
     };
 
-    const response = UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
-    Logger.log("Telegram API Response: " + response.getContentText());
-  } catch (err) {
-    Logger.log("Lỗi gửi thông báo Telegram: " + err);
+    UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", options);
+  } catch (e) {
+    Logger.log("Lỗi sendTelegramSimpleMessage: " + e);
   }
 }
 
