@@ -767,7 +767,7 @@
         </div>
 
         <!-- Bank Details -->
-        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1.5 font-mono text-left max-w-sm mx-auto mb-6 shadow-sm">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1.5 font-mono text-left max-w-sm mx-auto mb-4 shadow-sm">
           <div class="flex justify-between">
             <span class="text-slate-400">Ngân hàng:</span>
             <strong class="text-slate-900">MBBank</strong>
@@ -790,8 +790,46 @@
           </div>
         </div>
 
+        <!-- Realtime Status Indicator -->
+        <div id="payment-status-indicator" class="flex items-center justify-center gap-2 text-xs text-amber-600 bg-amber-50 py-2 rounded-lg mb-4 border border-amber-200">
+          <span class="animate-spin inline-block w-3 h-3 border-2 border-amber-600 border-t-transparent rounded-full"></span>
+          <span>Hệ thống đang chờ nhận chuyển khoản tự động SePay...</span>
+        </div>
+
         <button onclick="confirmPaymentFinished()" class="w-full py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-base shadow-md transition-all">
           ✅ ĐÃ HOÀN TẤT THANH TOÁN
+        </button>
+      </div>
+
+      <!-- STEP 3: Payment Success Display (Auto Popup on SePay Webhook) -->
+      <div id="modal-step-success" class="hidden p-6 sm:p-8 text-center bg-gradient-to-b from-emerald-50 to-white">
+        <div class="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg shadow-emerald-500/40 animate-bounce">
+          ✓
+        </div>
+        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full inline-block mb-2">
+          🎉 THANH TOÁN THÀNH CÔNG!
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Chào Mừng Anh/Chị Đến Với Khóa Học!</h3>
+        <p class="text-sm text-slate-600 mb-6">Hệ thống đã tự động ghi nhận chuyển khoản thành công cho đơn hàng <strong id="success-order-id" class="text-emerald-700 font-mono">KGV001</strong>.</p>
+
+        <!-- Telegram Group Box -->
+        <div class="bg-sky-50 border-2 border-sky-200 p-5 rounded-2xl mb-6 text-left shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              ✈️
+            </div>
+            <div>
+              <h4 class="font-extrabold text-slate-900 text-base">Nhóm Học Tập Telegram</h4>
+              <p class="text-xs text-slate-500">Tham gia ngay để nhận tài liệu & lịch học Zoom</p>
+            </div>
+          </div>
+          <a id="telegram-group-btn" href="https://t.me/NhaZoeBot" target="_blank" class="block w-full text-center py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-extrabold text-base shadow-lg shadow-sky-500/30 transition-all mt-2">
+            👉 VÀO NHÓM TELEGRAM HỌC TẬP NGAY
+          </a>
+        </div>
+
+        <button onclick="closeRegistrationModal()" class="text-slate-400 hover:text-slate-600 text-xs font-medium underline">
+          Đóng cửa sổ này
         </button>
       </div>
 
@@ -800,6 +838,8 @@
 
   <!-- Scripts -->
   <script>
+    let pollingInterval = null;
+
     // FAQ Accordion
     document.querySelectorAll('.faq-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -812,6 +852,118 @@
 
         if (isHidden) {
           content.classList.remove('hidden');
+          icon.textContent = '−';
+        }
+      });
+    });
+
+    // Registration Modal Functions
+    function openRegistrationModal() {
+      document.getElementById('registration-modal').classList.remove('hidden');
+      document.getElementById('modal-step-form').classList.remove('hidden');
+      document.getElementById('modal-step-payment').classList.add('hidden');
+      document.getElementById('modal-step-success').classList.add('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeRegistrationModal() {
+      if (pollingInterval) clearInterval(pollingInterval);
+      document.getElementById('registration-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // GOOGLE APPS SCRIPT WEB APP URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydIqxRYHjC-dE-dnLVbLsRbA3aHoe9yIZyOzbzfQstKCU37_Bbje8ktPIm8fefw0EzPw/exec";
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+
+      if (!name || !phone || !email) {
+        alert('Vui lòng điền đầy đủ 3 trường thông tin: Họ và tên, Số điện thoại và Email.');
+        return;
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Đang khởi tạo đơn hàng...';
+
+      let orderId = "KGV" + Math.floor(100 + Math.random() * 900); // Mã mặc định
+
+      // Gửi dữ liệu tới Google Apps Script
+      if (APPS_SCRIPT_URL) {
+        try {
+          const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ name, phone, email })
+          });
+          const result = await response.json();
+          if (result && result.orderId) {
+            orderId = result.orderId;
+          }
+        } catch (err) {
+          console.warn('Gửi Apps Script thất bại:', err);
+        }
+      }
+
+      // Nội dung chuyển khoản chuẩn: Mã Đơn Hàng + SĐT (Ví dụ: KGV001 0987654321)
+      const memoText = `${orderId} ${phone}`;
+      document.getElementById('customer-memo').textContent = memoText;
+      
+      const encodedMemo = encodeURIComponent(memoText);
+      const qrUrl = `https://vietqr.app/img?bank=MBBank&acc=8888161161&template=compact&showinfo=true&holder=CT%20CP%20DICH%20VU%20VA%20GIAI%20PHAP%20SO%20MYP&amount=890000&memo=${encodedMemo}`;
+      document.getElementById('qr-code-img').src = qrUrl;
+
+      // Khôi phục nút bấm & Chuyển sang Bước 2 Thanh toán VietQR
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+
+      document.getElementById('modal-step-form').classList.add('hidden');
+      document.getElementById('modal-step-payment').classList.remove('hidden');
+
+      // Bắt đầu Lắng nghe Tự động chuyển khoản SePay Webhook
+      startStatusPolling(orderId);
+    }
+
+    function startStatusPolling(orderId) {
+      if (pollingInterval) clearInterval(pollingInterval);
+      pollingInterval = setInterval(async () => {
+        if (!APPS_SCRIPT_URL || !orderId) return;
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=checkStatus&orderId=${orderId}`);
+          const data = await res.json();
+          if (data && data.paymentStatus === 'PAID') {
+            clearInterval(pollingInterval);
+            showSuccessStep(orderId, data.telegramGroupLink);
+          }
+        } catch (err) {
+          console.warn('Lỗi kiểm tra trạng thái thanh toán:', err);
+        }
+      }, 3000);
+    }
+
+    function showSuccessStep(orderId, telegramLink) {
+      document.getElementById('modal-step-form').classList.add('hidden');
+      document.getElementById('modal-step-payment').classList.add('hidden');
+      document.getElementById('modal-step-success').classList.remove('hidden');
+      document.getElementById('success-order-id').textContent = orderId;
+      if (telegramLink) {
+        document.getElementById('telegram-group-btn').href = telegramLink;
+      }
+    }
+
+    function confirmPaymentFinished() {
+      alert('Cảm ơn anh/chị đã hoàn tất đăng ký và thanh toán! Hệ thống sẽ kiểm tra và xác nhận kích hoạt tài khoản trong ít phút.');
+      closeRegistrationModal();
+    }
+  </script>
+</body>
+</html>tent.classList.remove('hidden');
           icon.textContent = '−';
         }
       });

@@ -1,6 +1,6 @@
 /**
  * ==============================================================================
- * GOOGLE APPS SCRIPT - KHÓA HỌC GIAO VIỆC DỄ DÀNG + TELEGRAM BOT NOTIFICATION
+ * GOOGLE APPS SCRIPT - KHÓA HỌC GIAO VIỆC DỄ DÀNG + SEPAY WEBHOOK & TELEGRAM
  * ==============================================================================
  * ID Sheet: 1-kU84hAZpjZffVpP5_Iv5Z7L4QPjkYM_wxKqvIfDxgc
  * Tên Trang Tính: Danh sach
@@ -10,30 +10,41 @@
 const SPREADSHEET_ID = "1-kU84hAZpjZffVpP5_Iv5Z7L4QPjkYM_wxKqvIfDxgc";
 const SHEET_NAME = "Danh sach";
 
-// 🤖 CẤU HÌNH TELEGRAM BOT
+// 🤖 CẤU HÌNH TELEGRAM BOT & NHÓM HỌC TẬP
 const TELEGRAM_BOT_TOKEN = "8945029594:AAGpux7Dqv59x1eLBSpcmpRM4egvkqWxh5s"; 
 const TELEGRAM_CHAT_ID = "5488178864";   
+const TELEGRAM_GROUP_LINK = "https://t.me/NhaZoeBot"; // Thay link nhóm Telegram học tập tại đây
 
 /**
  * 🔑 HÀM ÉP GOOGLE HIỆN BẢNG CẤP QUYỀN TRUY CẬP (AUTHORIZE)
- * Anh/chị chọn hàm 'authorizeTelegram' này và bấm nút Run!
  */
 function authorizeTelegram() {
-  // Lệnh trực tiếp không dùng try/catch để ép Google hiện bảng Cấp Quyền
   const res = UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/getMe");
   Logger.log("Kết quả cấp quyền thành công: " + res.getContentText());
 }
 
 function testTelegram() {
   const timestamp = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss");
-  sendTelegramNotification("KGVTEST", "Nguyễn Văn Test", "0987654321", "test@gmail.com", timestamp);
-}
-
-function doPost(e) {
-  return handleRequest(e);
+  sendTelegramNotification("KGVTEST", "Nguyễn Văn Test", "0987654321", "test@gmail.com", timestamp, "UNPAID");
 }
 
 function doGet(e) {
+  // 1. Kiểm tra trạng thái đơn hàng khi Landing Page Poll: ?action=checkStatus&orderId=KGV001
+  if (e && e.parameter && e.parameter.action === "checkStatus") {
+    const orderId = e.parameter.orderId || "";
+    const status = getOrderStatus(orderId);
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      orderId: orderId,
+      paymentStatus: status,
+      telegramGroupLink: TELEGRAM_GROUP_LINK
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  return handleRequest(e);
+}
+
+function doPost(e) {
   return handleRequest(e);
 }
 
@@ -53,6 +64,12 @@ function handleRequest(e) {
       data = e.parameter;
     }
 
+    // ⚡ NẾU LÀ SEPAY WEBHOOK (Có chứa tiền vào transferAmount / gateway / content)
+    if (data.gateway || data.transferType || data.transferAmount || (data.content && data.content.includes("KGV"))) {
+      return handleSePayWebhook(data);
+    }
+
+    // ⚡ NẾU LÀ ĐĂNG KÝ MỚI TỪ LANDING PAGE (Có name, phone, email)
     const name = data.name || data.fullName || "";
     const phone = data.phone || "";
     const email = data.email || "";
@@ -77,19 +94,19 @@ function handleRequest(e) {
     const orderId = "KGV" + String(nextNum).padStart(3, "0");
     const timestamp = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss");
 
-    // 1. Ghi dữ liệu vào Google Sheet
+    // Ghi dữ liệu vào Google Sheet
     sheet.appendRow([
-      timestamp,   // Cột A: TT (Thời gian nhập liệu)
-      orderId,     // Cột B: Mã Đơn Hàng (KGVxxx)
+      timestamp,   // Cột A: TT
+      orderId,     // Cột B: Mã Đơn Hàng
       name,        // Cột C: Họ và tên
       phone,       // Cột D: Điện thoại
       email,       // Cột E: Email
       "UNPAID"     // Cột F: Trạng thái thanh toán
     ]);
 
-    // 2. Gửi thông báo tự động về Telegram Bot (Dùng định dạng HTML an toàn)
+    // Gửi thông báo đơn hàng mới về Telegram Bot
     if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-      sendTelegramNotification(orderId, name, phone, email, timestamp);
+      sendTelegramNotification(orderId, name, phone, email, timestamp, "UNPAID");
     }
 
     return ContentService.createTextOutput(JSON.stringify({
@@ -98,7 +115,8 @@ function handleRequest(e) {
       timestamp: timestamp,
       name: name,
       phone: phone,
-      email: email
+      email: email,
+      telegramGroupLink: TELEGRAM_GROUP_LINK
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -113,20 +131,128 @@ function handleRequest(e) {
 }
 
 /**
- * Hàm gửi tin nhắn thông báo đơn hàng mới về Telegram (Format HTML an toàn 100%)
+ * Xử lý Webhook gửi sang từ SePay khi có biến động tiền về tài khoản
  */
-function sendTelegramNotification(orderId, name, phone, email, timestamp) {
+function handleSePayWebhook(data) {
   try {
+    const content = (data.content || data.code || data.description || "").toUpperCase();
+    const amount = data.transferAmount || data.accumulated || 0;
+
+    // Tìm mã đơn dạng KGVxxx trong nội dung chuyển khoản
+    const match = content.match(/KGV\d{3}/i);
+    if (!match) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ignored",
+        message: "Không tìm thấy mã KGV trong nội dung chuyển khoản"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const orderId = match[0].toUpperCase();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+
+    if (!sheet) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Sheet not found" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const dataRange = sheet.getDataRange().getValues();
+    let foundRow = -1;
+    let name = "";
+    let phone = "";
+    let email = "";
+
+    // Duyệt tìm dòng có chứa Mã Đơn Hàng ở Cột B (Index 1)
+    for (let i = 1; i < dataRange.length; i++) {
+      if (String(dataRange[i][1]).trim().toUpperCase() === orderId) {
+        foundRow = i + 1; // 1-based index
+        name = dataRange[i][2];
+        phone = dataRange[i][3];
+        email = dataRange[i][4];
+        break;
+      }
+    }
+
+    if (foundRow > 0) {
+      // Cập nhật Cột F (Trạng thái thanh toán) -> PAID
+      sheet.getRange(foundRow, 6).setValue("PAID");
+
+      const timestamp = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss");
+
+      // Gửi thông báo XÁC NHẬN THANH TOÁN THÀNH CÔNG về Telegram Bot
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+        sendTelegramNotification(orderId, name, phone, email, timestamp, "PAID", amount);
+      }
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        message: "Đã cập nhật trạng thái PAID cho đơn " + orderId
+      })).setMimeType(ContentService.MimeType.JSON);
+    } else {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "not_found",
+        message: "Không tìm thấy dòng tương ứng cho " + orderId
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Lấy trạng thái thanh toán từ Google Sheet
+ */
+function getOrderStatus(orderId) {
+  if (!orderId) return "UNPAID";
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) return "UNPAID";
+
+    const data = sheet.getDataRange().getValues();
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][1]).trim().toUpperCase() === orderId.trim().toUpperCase()) {
+        return String(data[i][5]).trim().toUpperCase(); // Cột F là Index 5
+      }
+    }
+  } catch (err) {
+    console.warn("Lỗi đọc getOrderStatus:", err);
+  }
+  return "UNPAID";
+}
+
+/**
+ * Hàm gửi tin nhắn thông báo về Telegram Bot (Tạo mới đơn & Xác nhận thanh toán thành công)
+ */
+function sendTelegramNotification(orderId, name, phone, email, timestamp, status, amount) {
+  try {
+    let title = "<b>🔔 ĐƠN HÀNG MỚI - KHOÁ HỌC GIAO VIỆC</b>";
+    let statusText = "UNPAID (Đang chờ quét VietQR)";
+    let moneyText = "890.000 VNĐ";
+
+    if (status === "PAID") {
+      title = "<b>✅ THANH TOÁN THÀNH CÔNG - KHOÁ HỌC GIAO VIỆC 🎉</b>";
+      statusText = "<b>PAID (Đã chuyển khoản thành công)</b>";
+      if (amount) {
+        moneyText = Number(amount).toLocaleString('vi-VN') + " VNĐ";
+      }
+    }
+
     const message = 
-      "<b>🔔 ĐƠN HÀNG MỚI - KHOÁ HỌC GIAO VIỆC</b>\n" +
+      title + "\n" +
       "-----------------------------------\n" +
       "🆔 <b>Mã đơn hàng:</b> <code>" + escapeHtml(orderId) + "</code>\n" +
       "👤 <b>Họ và tên:</b> " + escapeHtml(name) + "\n" +
       "📞 <b>Điện thoại:</b> <code>" + escapeHtml(phone) + "</code>\n" +
       "📧 <b>Email:</b> " + escapeHtml(email) + "\n" +
-      "💰 <b>Số tiền:</b> 890.000 VNĐ\n" +
+      "💰 <b>Số tiền:</b> " + moneyText + "\n" +
       "⏰ <b>Thời gian:</b> " + escapeHtml(timestamp) + "\n" +
-      "📌 <b>Trạng thái:</b> UNPAID (Đang chờ quét VietQR)";
+      "📌 <b>Trạng thái:</b> " + statusText + "\n\n" +
+      "🔗 <b>Link nhóm Telegram:</b> " + TELEGRAM_GROUP_LINK;
 
     const payload = {
       chat_id: TELEGRAM_CHAT_ID,
