@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Bật CORS cho phép nhận từ mọi nguồn
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -12,20 +11,20 @@ export default async function handler(req, res) {
 
   try {
     const payload = req.body || {};
+    const bodyString = typeof payload === 'string' ? payload : JSON.stringify(payload);
 
-    // Forward request tới Google Apps Script và tự động theo 302 Redirect
+    // Forward request tới Google Apps Script (dùng text/plain để Apps Script đọc e.postData.contents không bị lỗi)
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
-      body: JSON.stringify(payload),
+      body: bodyString,
       redirect: 'follow'
     });
 
     const responseData = await response.text();
 
-    // Phản hồi 200 OK cho SePay ngay lập tức
     return res.status(200).json({
       success: true,
       message: "SePay Webhook received and forwarded to Google Apps Script",
@@ -33,7 +32,6 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Error forwarding SePay Webhook:", error);
-    // Trả về 200 OK để SePay không báo lỗi
     return res.status(200).json({
       success: false,
       error: error.toString()
