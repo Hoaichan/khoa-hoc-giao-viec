@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi" class="scroll-smooth">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WZHCFN8D');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giao Việc Dễ Dàng, Sếp Càng Thảnh Thơi | Khóa Học Lãnh Đạo Khai Vấn</title>
@@ -58,6 +65,10 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WZHCFN8D"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Top Sticky Banner -->
   <div class="bg-gradient-to-r from-red-600 via-orange-600 to-amber-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-inner">
@@ -926,6 +937,15 @@
       document.getElementById('modal-step-form').classList.add('hidden');
       document.getElementById('modal-step-payment').classList.remove('hidden');
 
+      // Gửi sự kiện Google Tag Manager DataLayer (Chuyển đổi: Điền Form Đăng Ký / Lead)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'lead_submitted',
+        'order_id': orderId,
+        'value': 890000,
+        'currency': 'VND'
+      });
+
       // Bắt đầu Lắng nghe Tự động chuyển khoản SePay Webhook
       startStatusPolling(orderId);
     }
@@ -955,6 +975,15 @@
       if (telegramLink) {
         document.getElementById('telegram-group-btn').href = telegramLink;
       }
+
+      // Gửi sự kiện Google Tag Manager DataLayer (Chuyển đổi: Thanh Toán Thành Công / Purchase)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'purchase_success',
+        'order_id': orderId,
+        'value': 890000,
+        'currency': 'VND'
+      });
     }
 
     function confirmPaymentFinished() {
