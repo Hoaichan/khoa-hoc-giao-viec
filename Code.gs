@@ -12,7 +12,7 @@ const SHEET_NAME = "Danh sach";
 
 // 🤖 CẤU HÌNH TELEGRAM BOT & NHÓM HỌC TẬP
 const TELEGRAM_BOT_TOKEN = "8945029594:AAGpux7Dqv59x1eLBSpcmpRM4egvkqWxh5s"; 
-const TELEGRAM_CHAT_ID = "5488178864";   
+const TELEGRAM_CHAT_ID = "-5111655127";   
 const TELEGRAM_GROUP_LINK = "https://t.me/NhaZoeBot"; // Thay link nhóm Telegram học tập tại đây
 
 /**
